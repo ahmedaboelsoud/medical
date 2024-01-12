@@ -183,6 +183,7 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
+        'Super'=> App\Traits\BaseResponse::class,
         // 'Example' => App\Facades\Example::class,
     ])->toArray(),
 

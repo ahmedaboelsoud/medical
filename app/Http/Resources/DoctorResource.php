@@ -18,6 +18,8 @@ class DoctorResource extends JsonResource
             'id' => $this->id,
             'name' => $this->user->name,
             'email' => $this->user->email,
+            'status' => $this->status,
+            
         ];
     }
 }

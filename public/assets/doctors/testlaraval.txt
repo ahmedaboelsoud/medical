@@ -1,0 +1,6 @@
+------in new page
+------refresh->with search ->with paging
+------rollback->with input
+------search in last page
+------delete
+-----search in first page

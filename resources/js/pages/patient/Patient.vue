@@ -184,6 +184,7 @@ export default {
                 }
               }
               q = this.query.page 
+              this.$toast.success(this.$t('patients.patient_deleted'),{ position:"top"});
               this.loadItems(q)
             }
           
@@ -281,7 +282,7 @@ export default {
         query: this.query,
       });
       this.loadItems(1);
-    }, 1000),
+    }, 2000),
   },
 
 
