@@ -1,0 +1,15 @@
+.add_btn {
+    display:inline;
+    float: right;
+    background-color: #90a1b7;
+    color: #fff;
+    padding: 5px 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 400;
+    border-radius: 5px !important;
+        
+}
+.add_btn:hover {
+    color: #fff;      
+}

@@ -1,0 +1,49 @@
+{
+    "patients": {
+    	"patients": "Patients",
+        "title": "Title",
+        "mobile": "Mobile",
+        "email": "Email",
+        "patient_name" : "Patient Name",
+        "job": "Job",
+        "birthday": "Birthday",
+        "weight": "Weight",
+        "height": "Height",
+        "gender": "Gender",
+        "adress": "Adress",
+        "patient_data" : "Patient Data",
+        "patient_added":"Patient Added Successfully",
+        "patient_updated":"Patient Updated Successfully"
+        
+    },
+    "doctors": {
+    	"doctors": "Doctors",
+        "title": "Title",
+        "mobile": "Mobile",
+        "email": "Email",
+        "doctor_name" : "Doctor Name",
+        "job": "Job",
+        "birthday": "Birthday",
+        "weight": "Weight",
+        "height": "Height",
+        "gender": "Gender",
+        "adress": "Adress",
+        "doctor_data" : "Doctor Data",
+        "doctor_added":"Doctor Added Successfully",
+        "doctor_updated":"Doctor Updated Successfully",
+        "name":"Doctor Name",
+        "status":"Status",
+        "photo":"Photo",
+        "brief":"Brief"
+        
+    },  
+    
+    "site": {
+    	"delete" : "Delete",
+        "add_new" : "Add New",
+        "edite" : "Edite",
+        "action" : "Action",
+        "add" : "Add",
+        "password":"Password"
+    }
+}
