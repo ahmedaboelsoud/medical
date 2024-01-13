@@ -1,5 +1,5 @@
 <template>
-
+{{ cardInfo }}
     <div class="row">
         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
             <div class="dashboard-stat blue-madison">
@@ -78,24 +78,11 @@
     <CanvasJSChart :options="options" :style="styleOptions" @chart-ref="chartInstance"/>
 </template>
 <script>
-
+import axios from "axios";
 export default {
   data() {
     return {
-      cardInfo:[
-            { label: "Jan", y: 30 },
-            { label: "Feb", y: 70 },
-            { label: "Mar", y: 81 },
-            { label: "Apr", y: 93 },
-            { label: "May", y: 104 },
-            { label: "Jun", y: 97 },
-            { label: "Jul", y: 170 },
-            { label: "Aug", y: 190 },
-            { label: "Sep", y: 350 },
-            { label: "Oct", y: 410 },
-            { label: "Nov", y: 485 },
-            { label: "Dec", y: 550 }
-          ],
+      cardInfo:[],
       chart: null,
       options: {
         animationEnabled: true,
@@ -104,7 +91,7 @@ export default {
           text: "Revenue by Number of New Customers"
         },
         axisY: {
-          maximum: 1000,
+          maximum: '',
           titleFontColor: "#47acb1",
           labelFontColor: "#47acb1",
           lineColor: "#47acb1",
@@ -127,9 +114,7 @@ export default {
           type: "column",
           name: "No of New Customers",
           color: "#47acb1",
-          dataPoints: [
-            
-          ]
+          dataPoints:[]
         },]
       },
       styleOptions: {
@@ -139,24 +124,33 @@ export default {
     }
   },
   created(){
-    this.getJsonItem();
-    
-  
-  },
-  mounted(){
- 
+    this.loaditems();
   },
   methods: {
+   loaditems(){
+      axios.get('/api/dashboard')
+        .then(response => {
+          response.data.data.profits.forEach(element => {
+             //this.options.data[0].dataPoints.push({ label: element.month, y: element.price });
+             this.cardInfo.push({ label: element.month, y: parseInt(element.price) });
+          });
+          this.options.axisY.maximum =  parseInt(response.data.data.maxprice.price) + 10000
+          this.getJsonItem();
+        })
+        .catch(error => {
+          console.log(error)
+      })
+    },
 
     getJsonItem(){
       this.cardInfo.forEach(element => {
         this.options.data[0].dataPoints.push({ label: element.label, y: element.y });
-      });
+    });
     
   },
     chartInstance(chart) {
       this.chart = chart;
-    }
+    },
   }
 }
 </script>

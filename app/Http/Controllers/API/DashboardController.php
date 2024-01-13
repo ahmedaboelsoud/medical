@@ -19,7 +19,15 @@ class DashboardController extends Controller
                               DB::raw("(DATE_FORMAT(created_at, '%b')) as month"))
                               ->orderBy('created_at')
                               ->groupBy(DB::raw("DATE_FORMAT(created_at, '%b')"))->get(); 
-        return Super::sendResponse($profits);
+        $maxprice = Profit::whereYear('created_at', $year)->select(
+                                DB::raw("(sum(price)) as price"))
+                                  ->orderBy('price', 'desc')
+                                 ->groupBy(DB::raw("DATE_FORMAT(created_at, '%b')"))->first();
+        $res = [
+          "profits" =>$profits,
+          "maxprice" => $maxprice
+        ];                          
+        return Super::sendResponse($res);
       }// end of index
   
       public function get_profits(Request $request){
