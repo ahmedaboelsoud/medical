@@ -61,6 +61,10 @@ class DoctorController extends Controller
     public function deldoctor($id)
     {
        $doctor = Doctor::find($id);
+       $image_path = public_path("assets/doctors/".$doctor->photo);
+       if (File::exists($image_path)) {
+          File::delete($image_path);
+       } 
        $doctor->delete();
        return response()->json('The Doctor successfully deleted');
     }
@@ -69,17 +73,25 @@ class DoctorController extends Controller
     {
         $doctor = Doctor::find($id);
         if($doctor){
-            return Super::sendResponse($doctor);
+            return Super::sendResponse(new DoctorResource($doctor));
         }else{
            return Super::sendError('Doctor Not Found', "not found",404); 
         }
         
     }
 
-    public function update($id,DoctorRequest $request)
+    public function update(Doctor $doctor,DoctorRequest $request)
     {
-        $doctor = Doctor::find($id);
-        $doctor->update($request->all());
+        $doctor->update([
+            "brief" => $request->brief,
+            "birthday" => $request->birthday,
+            "status" => $request->status,
+        ]);
+        $doctor->user->update([
+            "name" => $request->name,
+            "email" => $request->email,
+            "password" => Hash::make($request->password),
+        ]);
         return Super::sendResponse(trans('site.updated_successfully'));
     }
 

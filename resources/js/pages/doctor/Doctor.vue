@@ -2,7 +2,7 @@
 @import 'public/admin_assets/en/style.css';
 </style> 
 <template>
-  {{ test.length }}
+  
   <div class="row">
     <div class="col-md-12">
       <!-- BEGIN EXAMPLE TABLE PORTLET-->
@@ -292,7 +292,7 @@ export default {
         query: this.query,
       });
       this.loadItems(1);
-    }, 1000),
+    }, 2000),
   },
 
 

@@ -38,7 +38,7 @@ export default {
     return api.patch(`/api/users/${id}`, payload);
   },
   delete(id) {
-    return api.delete(`/api/delete-doctors/${id}`);
+    return api.delete(`/api/delete-doctor/${id}`);
   },
   restore(id) {
     return api.get(`/api/users/return/${id}`);

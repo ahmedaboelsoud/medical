@@ -1,5 +1,4 @@
 <template>
-
   <div class="row">
     <div class="col-md-12 ">
       <div class="portlet box blue">
@@ -18,9 +17,9 @@
             
           <div class="col-md-4"  style="margin-top: 5px;">
            
-            <label class="control-label">{{ $t("doctors.profile") }} </label>          
+                    
           <div class="form-group form-group{{ $errors->has('photo') ? ' has-error' : '' }}">
-            
+            <img :src="imgURL || doctor.image" style="border-radius: 50% !important; width: 200px;" class="image">
             <form @submit="formSubmit" enctype="multipart/form-data">
                   <input type="file"  ref="file" class="form-control" v-on:change="onChange">
                   <button :disabled="upbtn === true" class="btn btn-primary btn-block">Upload</button>
@@ -28,7 +27,7 @@
 
 
           </div>
-          <img :src="imgURL || doctor.image" class="image" width="315">
+         
           </div>
           
 
