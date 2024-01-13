@@ -1,6 +1,8 @@
 import {createWebHistory, createRouter} from "vue-router";
 import Patients from "./patients";
 import Doctors from "./doctors";  
+import Dashboard from "./dashboard";  
+
 
 
 
@@ -9,6 +11,7 @@ const routes = [
     children: [
         ...Patients,
         ...Doctors,
+        ...Dashboard
     ]
   }
 ];

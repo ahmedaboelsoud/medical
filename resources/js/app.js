@@ -35,5 +35,6 @@ app.use(VueCookies)
 app.use(store)
 app.use(CanvasJSChart); // install the CanvasJS Vuejs Chart Plugin
 app.mount('#app')
+    
 
 

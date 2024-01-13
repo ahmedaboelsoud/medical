@@ -11,7 +11,12 @@
 				</li>
 				<!-- DOC: To remove the search box from the sidebar you just need to completely remove the below "sidebar-search-wrapper" LI element -->
 			   <br/>
-			    
+			   <li :class="{active: $route.matched.some(({ name }) => name === 'dashboard')}">
+					<router-link :to="{ name: 'dashboard', }" >
+						<i class="icon-rocket"></i>
+						<span class="title">{{ this.$t("dashboard.dashboard") }}</span>
+					 </router-link>
+				</li>
 				<li :class="{active: $route.matched.some(({ name }) => name === 'patients')}">
 					<router-link :to="{ name: 'patients', }" >
 						<i class="icon-rocket"></i>

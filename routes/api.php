@@ -5,6 +5,7 @@ use App\helper\RouteHelper;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\PatientController;
 use App\Http\Controllers\API\RegisterController;
+use App\Http\Controllers\API\DashboardController;
 
 
 /*
@@ -17,6 +18,9 @@ use App\Http\Controllers\API\RegisterController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+
+Route::get('dashboard', [DashboardController::class, 'index']);
 
 Route::post('register', [RegisterController::class, 'register']);
 Route::post('login', [RegisterController::class, 'login']);
