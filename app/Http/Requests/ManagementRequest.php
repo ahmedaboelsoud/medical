@@ -27,18 +27,16 @@ class ManagementRequest extends FormRequest
         $rules = [
             'name' => 'required|unique:users|max:100',
             'email' => 'required|email|unique:users|max:100',
-            'mobile' => 'required|unique:users|digits:11',
+           // 'mobile' => 'required|unique:users|digits:11',
             'password' => 'required|min:8|max:20|confirmed',
             'password_confirmation' => 'required|min:8|max:20',
         ];
-
         if (in_array($this->method(), ['PUT', 'PATCH'])) {
-            $role = $this->route()->parameter('management');
+            $id = $this->route()->parameter('id');
             $rules['password'] = 'nullable';
             $rules['password_confirmation'] = 'nullable'; 
-            $rules['name'] = Rule::unique('users')->ignore($role, 'id');
-            $rules['email'] = Rule::unique('users')->ignore($role, 'id');
-            $rules['mobile'] = Rule::unique('users')->ignore($role, 'id');
+            $rules['name'] = ['required','max:100',Rule::unique('users')->ignore($id, 'id')];
+            $rules['email'] = ['required','email','max:100',Rule::unique('users')->ignore($id, 'id')];
         }//end of if
 
         return $rules;
@@ -55,9 +53,9 @@ class ManagementRequest extends FormRequest
         'email.max' => __('patients.email_max'),
         'email.unique' => __('patients.email_unique'),
         'email.email' => __('patients.email_email'),
-        'mobile.required' => __('patients.mobile_required'),
-        'mobile.digits' => __('patients.mobile_digits'),
-        'mobile.unique' => __('patients.mobile_unique'),
+     //   'mobile.required' => __('patients.mobile_required'),
+       // 'mobile.digits' => __('patients.mobile_digits'),
+        //'mobile.unique' => __('patients.mobile_unique'),
         'password.required' => __('doctors.password_required'),
         'password.min' => __('doctors.password_min'),
         'password.max' => __('doctors.password_max'),

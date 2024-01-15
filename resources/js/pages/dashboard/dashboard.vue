@@ -1,5 +1,5 @@
 <template>
-{{ cardInfo }}
+
     <div class="row">
         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
             <div class="dashboard-stat blue-madison">
@@ -8,10 +8,10 @@
                 </div>
                 <div class="details">
                     <div class="number">
-                         1349
+                         {{ doctors }}
                     </div>
                     <div class="desc">
-                         New Feedbacks
+                      doctors
                     </div>
                 </div>
                 <a class="more" href="javascript:;">
@@ -82,6 +82,7 @@ import axios from "axios";
 export default {
   data() {
     return {
+      doctors:500,
       cardInfo:[],
       chart: null,
       options: {
@@ -99,7 +100,7 @@ export default {
           gridColor: "#d3d3d3"
         },
         axisY2: {
-          maximum: 500000,
+          maximum: '',
           title: "Revenue",
           valueFormatString: "$#,##0.##",
           titleFontColor: "#f07113",
@@ -134,7 +135,7 @@ export default {
              //this.options.data[0].dataPoints.push({ label: element.month, y: element.price });
              this.cardInfo.push({ label: element.month, y: parseInt(element.price) });
           });
-          this.options.axisY.maximum =  parseInt(response.data.data.maxprice.price) + 10000
+          this.options.axisY.maximum =  parseInt(response.data.data.maxprice.price) + parseInt(response.data.data.maxprice.price / 2)
           this.getJsonItem();
         })
         .catch(error => {
