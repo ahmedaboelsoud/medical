@@ -3,6 +3,8 @@ import Patients from "./patients";
 import Doctors from "./doctors";  
 import Dashboard from "./dashboard";
 import Management from "./management";
+import Appointments from "./appointments";
+
 
   
 const routes = [
@@ -11,7 +13,8 @@ const routes = [
         ...Patients,
         ...Doctors,
         ...Dashboard,
-        ...Management
+        ...Management,
+        ...Appointments
     ]
   }
 ];

@@ -1,4 +1,5 @@
 <template>
+  
  <div v-if="loader">
    <LoaderComponents></LoaderComponents>
  </div>
@@ -49,7 +50,7 @@
                                  v-model="userPermission"
                                  :true-value="[]"
                                  :value="map+' '+item"
-                                 :checked="testarr.includes(map+' '+item) ? true: false"
+                                 :checked="userPermission.includes(map+' '+item) ? true: false"
                                  type="checkbox" 
                                  style="margin-right: 5px;" 
                                  >
@@ -95,7 +96,6 @@
      return {
        userPermission: [],
        filename:"filename",
-       testarr:[],
        models:['patients', 'doctors'],
        maps:['create', 'read', 'update', 'delete'],
        tag: {
@@ -122,7 +122,7 @@
        let id = this.$route.params.id  
        dispatch("managements/getManagement",id).then(response => {   
          this.management.permissions.forEach(element => {
-           this.testarr.push(element.name);
+           this.userPermission.push(element.name);
          });
          console.log("Got some data")
        }, error =>{
@@ -138,7 +138,7 @@
        if (!this.v$.$error) {
          dispatch("managements/updateManagement",this.management).then(() => {
            this.$toast.success(this.$t('management.management_updated'), { position: "top" });
-           //this.$router.push("/management");
+           this.$router.push("/management");
          });
        } else {
          console.log("form val  feild");

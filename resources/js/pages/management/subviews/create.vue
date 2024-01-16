@@ -4,7 +4,7 @@
           <div class="portlet box blue">
               <div class="portlet-title">
                   <div class="caption">
-                      <i class="fa fa-gift"></i> {{ $t("doctors.doctor_data") }}</div>
+                      <i class="fa fa-gift"></i> {{ $t("management.management") }}</div>
                   <div class="tools">
                       <a href="javascript:;" class="collapse"> </a>
                       <a href="javascript:;" class="remove"> </a>

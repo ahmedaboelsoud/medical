@@ -4,6 +4,9 @@ import loader from "./modules/loader";
 import patients from "./modules/patients";
 import doctors from "./modules/doctors";
 import managements from "./modules/managements";
+import appointments from "./modules/appointments";
+
+
 
 
 const store = createStore({
@@ -12,6 +15,7 @@ const store = createStore({
         patients,
         doctors,
         managements,
+        appointments,
     }
 });
 

@@ -29,6 +29,12 @@
 						<span class="title">{{ this.$t("doctors.doctors") }}</span>
 					</router-link>
 				</li>
+				<li :class="{active: $route.matched.some(({ name }) => name === 'appointments')}">
+					<router-link :to="{ name: 'appointments' }" >
+						<i class="icon-rocket"></i>
+						<span class="title">{{ this.$t("appointments.appointments") }}</span>
+					</router-link>
+				</li>
 				<li :class="{active: $route.matched.some(({ name }) => name === 'management')}">
 					<router-link :to="{ name: 'management' }" >
 						<i class="icon-rocket"></i>

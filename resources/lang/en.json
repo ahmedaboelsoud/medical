@@ -16,6 +16,15 @@
         "patient_updated":"Patient Updated Successfully"
         
     },
+    "dashboard":{
+        "dashboard":"Dashboard"
+    },
+    "appointments":{
+        "appointments":"Appointments"
+    },
+    "management":{
+        "management":"Management"
+    },
     "doctors": {
     	"doctors": "Doctors",
         "title": "Title",
