@@ -56,10 +56,10 @@ class AppointmentController extends Controller
     }
 
     public function get_doctor(Request $q){
-       $appointment = Appointment::where('doctor_id',$q->doctor)
-                                 ->where('appdata',$q->appdata)
-                                 ->with('patients')->get();
-       return response()->json(['data' => $appointment]);
+        $appointment = Appointment::where('doctor_id',$q->doctor)
+                                  ->where('appdata',$q->appdata)
+                                  ->with('patients')->get();              
+        return Super::sendResponse(AppointmentResource::collection($appointment));
     }
 
     public function store(AppointmentRequest $request){

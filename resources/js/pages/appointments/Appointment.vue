@@ -3,11 +3,6 @@
 </style> 
 
 <template>
-  {{ loader }}
-    <ul class="breadcrumb mt-2">
-        <li class="breadcrumb-item"><a href="">Home</a></li>
-        <li class="breadcrumb-item">appointment</li>
-    </ul>
     <div class="row">
         <div class="col-md-12">
             <div class="tile shadow">
@@ -29,15 +24,21 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <div class="form-group">
                             <input  v-model="query.startdate" @input="filter" :disabled="validated ? '' : disabled" type="date" id="startdate" class="form-control dis" />
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <div class="form-group">
                             <input  v-model="query.enddate" @input="filter" :disabled="validated ? '' : disabled" type="date" id="enddate" class="form-control" />
                         </div>
+                    </div>
+                    <div class="col-md-2">
+                      <div class="btn-group pull-right" style="margin-top: 5px;;">
+                        <router-link :to="{ name: 'appointment-creat', }" class="add_btn"  > <i class="fa fa-plus"></i> {{
+                          $t("site.add_new") }}</router-link>
+                      </div>
                     </div>
                 </div><!-- end of row -->
                 <div class="row">
