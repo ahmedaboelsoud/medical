@@ -56,7 +56,7 @@ class AppointmentController extends Controller
     }
 
     public function get_doctor(Request $q){
-        $appointment = Appointment::where('doctor_id',$q->doctor)
+        $appointment = Appointment::where('doctor_id',$q->doctor_id)
                                   ->where('appdata',$q->appdata)
                                   ->with('patients')->get();              
         return Super::sendResponse(AppointmentResource::collection($appointment));
@@ -64,12 +64,11 @@ class AppointmentController extends Controller
 
     public function store(AppointmentRequest $request){
         $chckApp = Appointment::where('doctor_id',$request->doctor_id)
-                                     ->where('patient_id',$request->patient_id)
-                                     ->where('appdata',$request->appdata)
-                                     ->count();
+                               ->where('patient_id',$request->patient_id)
+                               ->where('appdata',$request->appdata)
+                               ->count();
         if($chckApp >= 1){
-          session()->flash('error', __('appointments.appointments_exist'));
-          return redirect('appointments/receive_appointments/'.$request->patient_id);
+            return Super::sendError("exist",404); 
         }else{
             $appointment = Appointment::create([
                 'doctor_id' => $request->doctor_id,
@@ -79,9 +78,7 @@ class AppointmentController extends Controller
             if($request->price){
                 $appointment->profits()->create(['price'=>$request->price]);
             }
-            session()->flash('msg', __('site.added_successfully'));
-            return redirect('appointments');
-
+            return Super::sendResponse('added_successfully');
         }                            
        
     }

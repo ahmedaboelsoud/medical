@@ -18,7 +18,7 @@
                                 <div class="col-md-4">
                                    <div class="form-group form-group" >
 
-                                        <select  v-model="query.doctor"   :disabled="validated ? '' : disabled" class="form-control dis">
+                                        <select  v-model="query.doctor_id"   :disabled="validated ? '' : disabled" class="form-control dis">
                                           <option  value="">select doctor </option>
                                           <option :value="doctor.id" v-for="(doctor, i) in doctors" :key="i"> {{ doctor.name }}</option>
                                         </select>
@@ -30,7 +30,7 @@
                                 </div>
                                 <div class="col-md-4">
                                    <div class="form-group form-group" >
-                                       <input class="form-control"  v-model="query.appdata"   type="date"/>
+                                       <input class="form-control" :disabled="validated ? '' : disabled" v-model="query.appdata"   type="date"/>
                                        <div v-if="Array.isArray(errors.appdata) == true" class="error" role="alert">
                                          <span style="color: red">  {{ errors.appdata[0] }}</span>
                                        </div> 
@@ -47,8 +47,11 @@
                             </form>
                             <form>
 
-
-                              <table class="table table-bordered">
+                            <div v-if="loader">
+                             <LoaderComponents></LoaderComponents>
+                            </div>
+                            <div v-else>
+                            <table class="table table-bordered">
                              <thead style="background-color: #F5F5F5">
                                <tr>
                                  <th scope="col">#</th>
@@ -57,15 +60,19 @@
                              </thead>
                              <tbody>
                                <tr class="counttr" v-for="(tag, i) in patient_res" :key="i">
-                                 <td scope="col">{{ i }}</td>
+                                 <td scope="col">{{ i+1 }}</td>
                                  <td scope="col">{{tag.patient}}</td>
                                </tr>
                              </tbody>
-                           </table> 
+                            </table> 
+                            </div>
+
+
+
                             <div class="row">
                                <div class="col-md-12">
                                    <div class="form-group form-group{{ $errors->has('title') ? ' has-error' : '' }}" >
-                                       <select v-model="query.patient"  :disabled="validated ? '' : disabled" class="form-control dis" >
+                                       <select v-model="query.patient_id"  :disabled="validated ? '' : disabled" class="form-control dis" >
                                          <option value="">select patient </option>
                                          <option :value="patient.id" v-for="(patient, i) in patients" :key="i"> {{ patient.title }}</option>
                                        </select>  
@@ -92,7 +99,7 @@
                             </div>
 
                            
-                          <button type="button" @click="Search()" class="btn blue" id="add_btn">
+                          <button type="button" @click="SignUp()" class="btn blue" id="add_btn">
                             <i class="fa fa-check"></i> {{ $t("site.add") }} </button>
                           </form>
                           <br>
@@ -110,19 +117,20 @@
 
 import _ from "lodash";
 import { mapGetters } from "vuex";
+import LoaderComponents from "../../../LoaderComponents.vue";
 import axios from "axios";
 export default {
- setup() {
-   
- },
+  components: {
+    LoaderComponents,
+  },
  data() {
    return {
      patient_res:"",
      doctors:[],
      validated:false,
      query: {
-       patient:"", 
-       doctor: "",
+       patient_id:"", 
+       doctor_id: "",
        appdata:"",
        price:"",
      //page:1,
@@ -137,7 +145,7 @@ export default {
   this.$store.commit('patients/REMOVE_ERRORS');
  },  
  computed: {
-   ...mapGetters("loader", ["successAlert"]),
+   ...mapGetters("loader", ["loader", "successAlert", "message"]),
    ...mapGetters("patients", ["message", "errors"]),
  },
  methods: {
@@ -147,16 +155,17 @@ export default {
        .then((response) => {
        this.patients = response.data.data.patients;
        this.doctors = response.data.data.doctors;
-       this.loader = false;
        console.log(response.data.data.total);
      })
      .catch((errors) => {
        console.log(errors);
-       this.loader = true;
      });
    },
    formSubmit(e) {
     e.preventDefault();
+    let { dispatch } = this.$store;
+    this.validated = true
+    dispatch('loader/startLoader', {}, { root: true })
     const config = {
       headers: {
         'content-type': 'multipart/form-data'
@@ -166,18 +175,19 @@ export default {
        .post(`/api/appointments/appointmentsDoctors`,this.query)
        .then((resess) => {
         this.patient_res = resess.data.data
+        dispatch('loader/stopLoader', {}, { root: true })
+        this.validated = false
      })
      .catch((errors) => {
        console.log(errors);
-       this.loader = true;
      });
     },
     
    SignUp() {
-     let { dispatch } = this.$store;
-       dispatch("patients/addPatient", this.query).then(() => {
-         this.$toast.success(this.$t('patients.patient_added'),{ position:"top"});
-         this.$router.push("/patients");
+      let { dispatch } = this.$store;
+      dispatch("appointments/addAppointment", this.query).then(() => {
+         this.$toast.success(this.$t('appointments.appointment_added'),{ position:"top"});
+         this.$router.push("/appointments");
        });
    },
  },

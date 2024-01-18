@@ -16,7 +16,7 @@ export default {
   },
   create(payload) {
     payload.lang = localStorage.getItem('lang');
-    return api.post("/api/add-appointment", payload);
+    return api.post("/api/appointments", payload);
   },
   update(payload) {
     payload.lang = localStorage.getItem('lang');
